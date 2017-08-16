@@ -14,33 +14,33 @@ use Hanson\Tuling\Tuling;
 
 class MessageHandler
 {
-    protected $keywords = [
-        'sendOrderNotify' => '出来接客了'
-    ];
+//    protected $keywords = [
+//        'sendOrderNotify' => '出来接客了'
+//    ];
 
-    public function messageHandler(Collection $message)
+    public static function messageHandler(Collection $message)
     {
         // 读取用户最后一条消息, by mysql/ redis
 
         // 检测日期数是否隔了一天以上, 是则发送你好 + 昵称, 我们有 N天没见面了, + 帮助文档关键词.
-        $userName = $message['from']['UserName'];
-        $nickName = $message['from']['NickName'];
-        $content = $message['message'];
-        $data = $message['time']['date'];
+//        $userName = $message['from']['UserName'];
+//        $nickName = $message['from']['NickName'];
+//        $content = $message['message'];
+//        $data = $message['time']['date'];
 
 
         if($message['type'] === 'text'){
 
-            $this->handleKeyword($message['message']);
+            self::handleKeyword($message['message'], $message['from']['UserName']);
             vbot('console')->log('message_return', json_encode($message));
-            $sendMessage = $this->talkingWithTuLing($message['message']);
+            $sendMessage = self::talkingWithTuLing($message['message']);
             Text::send($message['from']['UserName'], $sendMessage);
         }
 
         // 将此条信息保存到数据库, 并更新此UserName对应的redis的最后一条信息
     }
 
-    private function talkingWithTuLing($message)
+    protected static function talkingWithTuLing($message)
     {
         $tuling = new Tuling(env('TULING_KEY'), env('TULING_SECRET'));
         return $tuling->text($message)->user(123)->request();
@@ -52,13 +52,16 @@ class MessageHandler
      * @param $keyword
      * @author Zhengbledore(郑方方)
      */
-    private function handleKeyword($keyword)
+    protected static function handleKeyword($keyword, $user)
     {
-        $array = array_where($this->keywords, function ($value, $key) use($keyword){
+        $keywords = [
+            'sendOrderNotify' => '出来接客了'
+        ];
+        $array = array_where($keywords, function ($value, $key) use($keyword, $user){
 
             if($value == $keyword){
                 // send notify to message
-                $this->$key($keyword);
+                self::$key($keyword, $user);
                 return true;
             }
         });
@@ -69,13 +72,13 @@ class MessageHandler
      * @param $keyword
      * @author Zhengbledore(郑方方)
      */
-    private function sendOrderNotify($keyword)
+    protected static function sendOrderNotify($keyword, $user)
     {
         // todo SDK短信通知
         [123, 321, 1234567];
 
         $message = '发送给三个人的短信内容';
-        $sendMessage = $this->talkingWithTuLing($keyword);
-        Text::send($message['from']['UserName'], $sendMessage);
+        $sendMessage = self::talkingWithTuLing($keyword);
+        Text::send($user, $sendMessage);
     }
 }
