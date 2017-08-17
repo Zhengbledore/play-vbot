@@ -60,9 +60,13 @@ class MessageHandler
     protected static function handleKeyword($keyword, $user)
     {
         $keywords = [
-            'sendOrderNotify' => '出来接客了',
+            'recordCustomerStepOne' => '出来接客了',
+            'recordCustomerStepTwo' => '出来接客了',
+            'recordCustomerStepThree' => '出来接客了',
             'setAdmin' => '!***&设置订单通知管理员&***!'
         ];
+
+        // 检测username + step,  在redis里有没有存步骤信息, 5分钟内发完
         $array = array_where($keywords, function ($value, $key) use($keyword, $user){
 
             if($value == $keyword){
@@ -73,19 +77,40 @@ class MessageHandler
         });
     }
 
+    protected static function recordCustomerStepOne($keyword, $user, $nickname)
+    {
+        Text::send($user, '已收到您的信息, 请在收到此信息后, 留下您的联系方式, 小创将记录您接下来发的一条信息');
+    }
+
+    protected static function recordCustomerStepTwo($keyword, $user, $nickname)
+    {
+
+        Text::send($user, '确认您的联系方式是否为' . '$contract' . '若确认无误, 请输入"确认", ""');
+    }
+
+    protected static function recordCustomerStepThree($keyword, $user, $nickname)
+    {
+
+        Text::send($user, '多谢您的合作, 小创正在联系主人们');
+    }
+
     /**
      *
-     * @param $keyword
+     * @param $nickname
+     * @param $contactInformation
      * @author Zhengbledore(郑方方)
      */
-    protected static function sendOrderNotify($keyword, $user, $nickname)
+    protected static function sendOrderNotify($nickname, $contactInformation)
     {
         // todo SDK改成微信通知
         [123, 321, 1234567];
 
-        $message = '发送给三个人的微信内容' . $nickname;
-        $sendMessage = self::talkingWithTuLing($keyword);
-        Text::send($user, $sendMessage);
+        // 检查这是今天第几次发送信息了
+
+        if(true){
+            $message = '收到昵称为' . $nickname .'的微信用户的请求:' . $contactInformation . ', 请尽快联系';
+//        $sendMessage = self::talkingWithTuLing($keyword);
+        }
     }
 
     protected static function setAdmin($keyword, $user, $nickname)
