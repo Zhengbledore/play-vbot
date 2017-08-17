@@ -2,6 +2,7 @@
 
 namespace App\Services\WeChatRobot;
 
+use App\Models\Admins;
 use Hanson\Vbot\Contact\Friends;
 use Hanson\Vbot\Contact\Groups;
 use Hanson\Vbot\Contact\Members;
@@ -37,6 +38,10 @@ class MessageHandler
             Text::send($message['from']['UserName'], $sendMessage);
         }
 
+        if($message['type'] === ''){
+
+        }
+
         // 将此条信息保存到数据库, 并更新此UserName对应的redis的最后一条信息
     }
 
@@ -55,7 +60,8 @@ class MessageHandler
     protected static function handleKeyword($keyword, $user)
     {
         $keywords = [
-            'sendOrderNotify' => '出来接客了'
+            'sendOrderNotify' => '出来接客了',
+            'setAdmin' => '!***&设置订单通知管理员&***!'
         ];
         $array = array_where($keywords, function ($value, $key) use($keyword, $user){
 
@@ -72,13 +78,34 @@ class MessageHandler
      * @param $keyword
      * @author Zhengbledore(郑方方)
      */
-    protected static function sendOrderNotify($keyword, $user)
+    protected static function sendOrderNotify($keyword, $user, $nickname)
     {
-        // todo SDK短信通知
+        // todo SDK改成微信通知
         [123, 321, 1234567];
 
-        $message = '发送给三个人的短信内容';
+        $message = '发送给三个人的微信内容' . $nickname;
         $sendMessage = self::talkingWithTuLing($keyword);
         Text::send($user, $sendMessage);
+    }
+
+    protected static function setAdmin($keyword, $user, $nickname)
+    {
+        $admins = new Admins;
+
+        $admin = $admins->where('username', $user)->count();
+
+        if($admin > 0){
+            $admins->username = $user;
+            $admins->nickname = $nickname;
+            $result = $admins->save();
+
+            if($result){
+                Text::send($user, $nickname . '设置管理员成功');
+            }else{
+                Text::send($user, $nickname . '设置管理员失败');
+            }
+        }else{
+            Text::send($user, $nickname . '已经设置为管理员了, 请勿重复添加');
+        }
     }
 }
