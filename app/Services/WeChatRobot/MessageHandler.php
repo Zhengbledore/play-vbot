@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Cache;
 class MessageHandler
 {
 //    protected $keywords = [
-//        'sendOrderNotify' => '出来接客了'
+//        'sendOrderNotify' => '出来接单了'
 //    ];
 
     public static function messageHandler(Collection $message)
@@ -76,7 +76,7 @@ class MessageHandler
     protected static function handleKeyword($keyword, $user, $nickname)
     {
         $keywords = [
-            'recordCustomerStepOne' => '出来接客了',
+            'recordCustomerStepOne' => '出来接单了',
             'setAdmin' => '!***&设置订单通知管理员&***!'
         ];
 
@@ -95,7 +95,7 @@ class MessageHandler
 
         if (empty($cache) || $cache['step'] == null) {
             switch ($keyword) {
-                case '出来接客了':
+                case '出来接单了':
                     self::recordCustomerStepOne($keyword, $user, $nickname);
                     return true;
                     break;
@@ -178,7 +178,7 @@ class MessageHandler
                 ['step' => 'one', 'contract' => null],
                 5
             );
-            Text::send($user, '小创收到重新输入指令');
+            Text::send($user, '小创收到重新输入指令, 请重新输入您的联系方式');
         }
     }
 
