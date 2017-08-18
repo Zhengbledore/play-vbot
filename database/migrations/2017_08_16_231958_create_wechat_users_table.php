@@ -17,6 +17,7 @@ class CreateWechatUsersTable extends Migration
             $table->increments('id');
             $table->string('username', 255)->unique();
             $table->string('nickname', 255);
+            $table->text('contract');
             $table->timestamps();
         });
     }
