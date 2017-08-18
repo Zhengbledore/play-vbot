@@ -17,6 +17,8 @@ class CreateWechatAdminsTable extends Migration
             $table->increments('id');
             $table->string('username', 255)->unique();
             $table->string('nickname', 255);
+            $table->string('email', 255);
+            $table->string('phone', 255);
             $table->tinyInteger('is_use')->default(1);
             $table->tinyInteger('level')->default(1);
             $table->timestamps();
