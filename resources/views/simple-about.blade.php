@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bttn.css/0.2.4/bttn.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <style>
@@ -64,9 +68,9 @@
         }
 
         #my-qr-code{
-            top: 5%;
-            position: relative;
-            text-align: center;
+            /*top: 5%;*/
+            /*position: relative;*/
+            /*text-align: center;*/
         }
     }
 
@@ -89,9 +93,9 @@
         }
 
         #my-qr-code{
-            top: 5%;
-            position: relative;
-            text-align: center;
+            /*top: 5%;*/
+            /*position: relative;*/
+            /*text-align: center;*/
         }
     }
 
@@ -115,9 +119,9 @@
         }
 
         #my-qr-code{
-            top: 5%;
-            position: relative;
-            text-align: center;
+            /*top: 5%;*/
+            /*position: relative;*/
+            /*text-align: center;*/
         }
     }
 
@@ -141,9 +145,9 @@
         }
 
         #my-qr-code{
-            top: 5%;
-            position: relative;
-            text-align: center;
+            /*top: 5%;*/
+            /*position: relative;*/
+            /*text-align: center;*/
         }
     }
 
@@ -169,9 +173,9 @@
         }
 
         #my-qr-code{
-            top: 5%;
-            position: relative;
-            text-align: center;
+            /*top: 5%;*/
+            /*position: relative;*/
+            /*text-align: center;*/
         }
     }
 
@@ -601,6 +605,10 @@
             transform: rotate(0deg);
         }
     }
+
+    .typed-cursor {
+        display: none;
+    }
 </style>
 <body>
 <div>
@@ -634,11 +642,18 @@
 
 
 <div class="bulletin-board" style="border-radius: 10px;">
-    <div id="my-qr-code">
-        <img src="{{asset('images/WechatIMG27.jpeg')}}" alt="" class="qr-code">
+    <div id="my-introduction" style="height: 180px; padding: 18% 5% 10% 5%;">
+        <p>重新加载古代信息...</p>
     </div>
-    <div id="my-introduction">
-
+    <div id="my-qr-code" style="height: 350px; text-align: center; display: none;">
+        <div style=" width: 250px; height: 250px; text-align: center; margin: auto;">
+            <img src="{{asset('images/WechatIMG27.jpeg')}}" alt="" class="qr-code" style="margin: auto">
+        </div>
+        <div style="width: 100%; height: 45px;">
+            <button class="bttn-bordered bttn-md bttn-primary" id="next-page">
+                点击进入
+            </button>
+        </div>
     </div>
 </div>
 </body>
@@ -752,6 +767,45 @@
             }
         },
         "retina_detect": true
+    });
+
+    var typed2 = new Typed('#my-introduction', {
+        strings: [
+            '正在加载古代信息...',
+            '勇于探索的冒险者你好, 很荣幸你的到来.',
+            '但是, 很抱歉, 没法向各种故事中的那样给你见面礼. ',
+            '因为我只是一名微信机器人, 我叫小创. ',
+            '并且在我被制造之时, 便被赋予了一项任务. ',
+            '一项既让人无奈, 却也无可厚非的任务.',
+            '嗯..., 好吧, 我想你已经知道是什么事情了.',
+            '嗯......, 嗯......, 嗯......',
+            '好吧, 虽然我只是一名机器人, 但是我还是不能昧者良心, 不告诉你.',
+            '我真正的目的是!',
+            '发广告!!! 发广告!!!  发广告!!!  重要的事情说三遍.',
+            '我诞生于一个网站开发团队, 名字叫创意工坊, 我们的团队很有朝气, 很有power',
+            '我们有四个开发人员, 三个后端, 一个前端',
+            '并且各自都是在职人员, 精通前端Angular,Vue. 后端Laravel, ThinkPHP',
+            '如果你想了解我们欢迎扫描下方二维码, 添加小创微信机器人为好友, 随时欢迎骚扰, 当然工作时间没法实时回复, 如果发生, 只能说抱歉.',
+            '感谢您的到来. ⬇️ 这是微信机器人小创的二维码哦, 可以加我跟我闲聊的哦.',
+        ],
+        typeSpeed: 70,
+        backSpeed: 10,
+        fadeOut: false,
+        loop: false
+    });
+
+    $(function(){
+
+        var showQrCode = function(){
+            var tmpCode = $('#my-qr-code');
+            tmpCode.show();
+            tmpCode.addClass('animated fadeInUp');
+        };
+        setTimeout(showQrCode, 3000);
+
+        $('#next-page').on('click', function(){
+            window.location.href = 'http://www.echofault.com';
+        });
     });
 </script>
 </html>
