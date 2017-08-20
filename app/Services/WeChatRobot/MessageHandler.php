@@ -3,6 +3,7 @@
 namespace App\Services\WeChatRobot;
 
 use App\Models\Admins;
+use App\Models\NotifyOrder;
 use App\Models\WechatUsers;
 use Hanson\Vbot\Contact\Friends;
 use Hanson\Vbot\Contact\Groups;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Cache;
 class MessageHandler
 {
 //    protected $keywords = [
-//        'sendOrderNotify' => '出来接客了'
+//        'sendOrderNotify' => '出来接单了'
 //    ];
 
     public static function messageHandler(Collection $message)
@@ -34,10 +35,13 @@ class MessageHandler
 
         if ($message['type'] === 'text') {
 
-            self::handleKeyword($message['message'], $message['from']['UserName'], $message['from']['NickName']);
+            $boolean = self::handleKeyword($message['message'], $message['from']['UserName'], $message['from']['NickName']);
             vbot('console')->log('message_return', json_encode($message));
-            $sendMessage = self::talkingWithTuLing($message['message']);
-            Text::send($message['from']['UserName'], $sendMessage);
+
+            if(!$boolean){
+                $sendMessage = self::talkingWithTuLing($message['message']);
+                Text::send($message['from']['UserName'], $sendMessage);
+            }
         }
 
         if ($message['type'] === 'request_friend') {
@@ -66,12 +70,13 @@ class MessageHandler
      * 处理键值并准备执行下一步
      *
      * @param $keyword
+     * @return boolean
      * @author Zhengbledore(郑方方)
      */
     protected static function handleKeyword($keyword, $user, $nickname)
     {
         $keywords = [
-            'recordCustomerStepOne' => '出来接客了',
+            'recordCustomerStepOne' => '出来接单了',
             'setAdmin' => '!***&设置订单通知管理员&***!'
         ];
 
@@ -90,21 +95,30 @@ class MessageHandler
 
         if (empty($cache) || $cache['step'] == null) {
             switch ($keyword) {
-                case '出来接客了':
+                case '出来接单了':
                     self::recordCustomerStepOne($keyword, $user, $nickname);
+                    return true;
                     break;
 
                 case '!***&设置订单通知管理员&***!':
                     self::setAdmin($keyword, $user, $nickname);
+                    return true;
+                    break;
+
+                default:
+                    return false;
                     break;
             }
         } elseif ($cache['step'] === 'one') {
 
             self::recordCustomerStepTwo($keyword, $user, $nickname);
+            return true;
         } elseif ($cache['step'] === 'two') {
 
             self::recordCustomerStepThree($keyword, $user, $nickname);
+            return true;
         }
+        return false;
     }
 
     protected static function recordCustomerStepOne($keyword, $user, $nickname)
@@ -144,6 +158,10 @@ class MessageHandler
                 $weChatUser
                     ->where('username', $user)
                     ->update(['contract' => $cache['contract'], 'nickname' => $nickname]);
+
+                $order = new NotifyOrder();
+                $order->uid = $tmp['id'];
+                $order->save();
             }catch (\Exception $e){
                 $weChatUser->username = $user;
                 $weChatUser->nickname = $nickname;
@@ -160,7 +178,7 @@ class MessageHandler
                 ['step' => 'one', 'contract' => null],
                 5
             );
-            Text::send($user, '小创收到重新输入指令');
+            Text::send($user, '小创收到重新输入指令, 请重新输入您的联系方式');
         }
     }
 
@@ -192,7 +210,7 @@ class MessageHandler
 
         $admin = $admins->where('username', $user)->count();
 
-        if ($admin > 0) {
+        if ($admin <= 0) {
             $admins->username = $user;
             $admins->nickname = $nickname;
             $result = $admins->save();
