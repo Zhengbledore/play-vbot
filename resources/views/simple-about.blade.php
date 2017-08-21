@@ -760,7 +760,7 @@
 
     </div>
 
-    <ul class="bg-bubbles">
+    <ul class="bg-bubbles" style="padding-left: 0px;">
         <li></li>
         <li></li>
         <li></li>
