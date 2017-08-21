@@ -5,13 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>一则跨越时空的对话</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bttn.css/0.2.4/bttn.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    {{--<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>--}}
+    <script src="https://cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <style>
     /* ---- reset ---- */
@@ -52,7 +53,7 @@
 
         .bulletin-board{
             max-width: 640px;
-            height: 70%;
+            height: 600px;
             background-color: #ffffff;
             margin: auto;
             position: fixed;
@@ -67,17 +68,36 @@
             height: 250px;
         }
 
+        .qr-code-warp{
+            width: 250px;
+            height: 250px;
+            text-align: center;
+            margin: auto;
+        }
+
         #my-qr-code{
             /*top: 5%;*/
             /*position: relative;*/
             /*text-align: center;*/
+        }
+
+        #my-introduction{
+            height: 180px;
+            padding: 10% 5% 12% 5%;
+            font-size: x-large;
+        }
+
+        .button-warp{
+            width: 100%;
+            height: 45px;
+            margin-top: 20px;
         }
     }
 
     @media screen and (min-width: 960px) and (max-width: 1199px) {
         .bulletin-board{
             max-width: 640px;
-            height: 70%;
+            height: 550px;
             background-color: #ffffff;
             margin: auto;
             position: fixed;
@@ -92,10 +112,29 @@
             height: 250px;
         }
 
+        .qr-code-warp{
+            width: 250px;
+            height: 250px;
+            text-align: center;
+            margin: auto;
+        }
+
         #my-qr-code{
             /*top: 5%;*/
             /*position: relative;*/
             /*text-align: center;*/
+        }
+
+        #my-introduction{
+            height: 180px;
+            padding: 10% 5% 10% 5%;
+            font-size: x-large;
+        }
+
+        .button-warp{
+            width: 100%;
+            height: 45px;
+            margin-top: 10px;
         }
     }
 
@@ -114,14 +153,33 @@
         }
 
         .qr-code{
-            width: 250px;
-            height: 250px;
+            width: 220px;
+            height: 220px;
+        }
+
+        .qr-code-warp{
+            width: 220px;
+            height: 220px;
+            text-align: center;
+            margin: auto;
         }
 
         #my-qr-code{
             /*top: 5%;*/
             /*position: relative;*/
             /*text-align: center;*/
+        }
+
+        #my-introduction{
+            height: 180px;
+            padding: 7% 7% 5% 7%;
+            font-size: x-large;
+        }
+
+        .button-warp{
+            width: 100%;
+            height: 45px;
+            margin-top: 10px;
         }
     }
 
@@ -144,14 +202,33 @@
             height: 220px;
         }
 
+        .qr-code-warp{
+            width: 220px;
+            height: 220px;
+            text-align: center;
+            margin: auto;
+        }
+
         #my-qr-code{
             /*top: 5%;*/
             /*position: relative;*/
             /*text-align: center;*/
         }
+
+        #my-introduction{
+            height: 180px;
+            padding: 10% 5% 10% 5%;
+            font-size: x-large;
+        }
+
+        .button-warp{
+            width: 100%;
+            height: 45px;
+            margin-top: 10px;
+        }
     }
 
-    @media only screen and (max-width: 479px) {
+    @media only screen and (min-width: 322px) and (max-width: 479px) {
 
         .bulletin-board{
             max-width: 640px;
@@ -167,15 +244,82 @@
         }
 
         .qr-code{
-            width: 200px;
-            height: 200px;
+            width: 170px;
+            height: 170px;
             margin: 0 auto;
         }
 
+        .qr-code-warp{
+            width: 170px;
+            height: 170px;
+            text-align: center;
+            margin: auto;
+        }
+
         #my-qr-code{
-            /*top: 5%;*/
-            /*position: relative;*/
+            top: 8%;
+            position: relative;
             /*text-align: center;*/
+        }
+
+        #my-introduction{
+            height: 180px;
+            padding: 10% 7% 10% 7%;
+            font-size: larger;
+        }
+
+
+        .button-warp{
+            width: 100%;
+            height: 45px;
+            margin-top: 20px;
+        }
+    }
+
+
+    @media only screen and (max-width: 321px) {
+
+        .bulletin-board{
+            max-width: 640px;
+            width: 80%;
+            height: 70%;
+            background-color: #ffffff;
+            margin: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .qr-code{
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+
+        .qr-code-warp{
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            margin: auto;
+        }
+
+        #my-qr-code{
+            top: 5%;
+            position: relative;
+            /*text-align: center;*/
+        }
+
+        #my-introduction{
+            height: 100px;
+            padding: 5% 5% 5% 5%;
+        }
+
+        .button-warp{
+            width: 100%;
+            height: 45px;
+            margin-top: 10px;
         }
     }
 
@@ -642,14 +786,14 @@
 
 
 <div class="bulletin-board" style="border-radius: 10px;">
-    <div id="my-introduction" style="height: 180px; padding: 18% 5% 10% 5%;">
+    <div id="my-introduction" style="">
         <p>重新加载古代信息...</p>
     </div>
     <div id="my-qr-code" style="height: 350px; text-align: center; display: none;">
-        <div style=" width: 250px; height: 250px; text-align: center; margin: auto;">
+        <div style="" class="qr-code-warp">
             <img src="{{asset('images/WechatIMG27.jpeg')}}" alt="" class="qr-code" style="margin: auto">
         </div>
-        <div style="width: 100%; height: 45px;">
+        <div style="" class="button-warp">
             <button class="bttn-bordered bttn-md bttn-primary" id="next-page">
                 点击进入
             </button>
@@ -784,9 +928,9 @@
             '发广告!!! 发广告!!!  发广告!!!  重要的事情说三遍.',
             '我诞生于一个网站开发团队, 名字叫创意工坊, 我们的团队很有朝气, 很有power',
             '我们有四个开发人员, 三个后端, 一个前端',
-            '并且各自都是在职人员, 精通前端Angular,Vue. 后端Laravel, ThinkPHP',
-            '如果你想了解我们欢迎扫描下方二维码, 添加小创微信机器人为好友, 随时欢迎骚扰, 当然工作时间没法实时回复, 如果发生, 只能说抱歉.',
-            '感谢您的到来. ⬇️ 这是微信机器人小创的二维码哦, 可以加我跟我闲聊的哦.',
+            '并且各自都是在职人员, 精通前端Angular, Vue, JQuery. 后端Laravel, ThinkPHP',
+            '如果你想了解我们欢迎扫描下方二维码, 添加小创微信机器人为好友, 随时欢迎骚扰, 当然工作时间没法实时回复, 只能先说抱歉.',
+            '感谢您的到来. ⬇️ 这是微信机器人小创的二维码哦, 可以加我跟我闲聊或者聊聊网站开发的哦. 或者进入我们的网站.',
         ],
         typeSpeed: 70,
         backSpeed: 10,
@@ -801,7 +945,7 @@
             tmpCode.show();
             tmpCode.addClass('animated fadeInUp');
         };
-        setTimeout(showQrCode, 3000);
+        setTimeout(showQrCode, 1000);
 
         $('#next-page').on('click', function(){
             window.location.href = 'http://www.echofault.com';
