@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>一则跨越时空的对话</title>
+    <link rel="icon" href="{{asset('images/WechatIMG27.jpeg')}}" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bttn.css/0.2.4/bttn.min.css" rel="stylesheet">
@@ -233,7 +234,7 @@
         .bulletin-board{
             max-width: 640px;
             width: 80%;
-            height: 70%;
+            height: 450px;
             background-color: #ffffff;
             margin: auto;
             position: fixed;
@@ -257,14 +258,14 @@
         }
 
         #my-qr-code{
-            top: 8%;
+            top: 3%;
             position: relative;
             /*text-align: center;*/
         }
 
         #my-introduction{
             height: 180px;
-            padding: 10% 7% 10% 7%;
+            padding: 10% 7% 5% 7%;
             font-size: larger;
         }
 
@@ -282,7 +283,7 @@
         .bulletin-board{
             max-width: 640px;
             width: 80%;
-            height: 70%;
+            height: 400px;
             background-color: #ffffff;
             margin: auto;
             position: fixed;
@@ -760,7 +761,7 @@
 
     </div>
 
-    <ul class="bg-bubbles" style="padding-left: 0px;">
+    <ul class="bg-bubbles" style="padding-left: 0px;overflow-x:hidden;">
         <li></li>
         <li></li>
         <li></li>
